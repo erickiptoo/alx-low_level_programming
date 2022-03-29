@@ -2,26 +2,34 @@
 #include <stdio.h>
 
 /**
- * *_strstr - locates a substring
- * @haystack: string to search in
- * @needle: substring to look for
- *
- * Return: pointer to the beginning of the located substring
- * or NULL if the substring is not found
+ * print_diagsums - Print the sum of the 2 diagonals of a square matrix
+ * @a: 2D array of int types
+ * @size: size of array (square)
+ * Return: nothing
  */
-char *_strstr(char *haystack, char *needle)
-{
-	int i, j;
 
-	for (i = 0; haystack[i] != '\0'; i++)
+void print_diagsums(int *a, int size)
+{
+	int i, sum, sizer;
+
+	i = 0;
+	sum = 0;
+	sizer = size * size;
+	while (i < sizer)
 	{
-		for (j = 0; needle[j] != '\0'; j++)
-		{
-			if (haystack[i + j] != needle[j])
-				break;
-		}
-		if (!needle[j])
-			return (&haystack[i]);
+		if (i % (size + 1) == 0)
+			sum += a[i];
+		i++;
 	}
-	return (NULL);
+	printf("%d, ", sum);
+
+	sum = 0;
+	i = 0;
+	while (i < sizer)
+	{
+		if (i % (size - 1) == 0 && i != (sizer - 1) && i != 0)
+			sum += a[i];
+		i++;
+	}
+	printf("%d\n", sum);
 }
