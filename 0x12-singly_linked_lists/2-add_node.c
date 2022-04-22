@@ -1,23 +1,42 @@
 #include "lists.h"
-
 /**
- * add_nodeint - adds a new node at the beginning of a linked list
- * @head: pointer to the first node in the list
- * @n: data to insert in that new node
- *
- * Return: pointer to the new node, or NULL if it fails
+ * _strlen - returns the length of a string
+ * @s: string s
+ * Return: length of string
  */
-listint_t *add_nodeint(listint_t **head, const int n)
+int _strlen(char *s)
 {
-	listint_t *new;
+	char *p = s;
 
-	new = malloc(sizeof(listint_t));
-	if (!new)
+	while (*s)
+		s++;
+	return (s - p);
+}
+/**
+ * add_node - adds a new node at the beginning of a list_t list
+ * @head: reference to head of linked list
+ * @str: string to be added on new node
+ * Return: address of new head;
+ */
+list_t *add_node(list_t **head, const char *str)
+{
+	list_t *newNode;
+	char *newStr;
+
+	if (!str)
 		return (NULL);
-
-	new->n = n;
-	new->next = *head;
-	*head = new;
-
-	return (new);
+	newNode = malloc(sizeof(list_t));
+	if (!newNode)
+		return (NULL);
+	newStr = strdup(str);
+	if (!newStr)
+	{
+		free(newNode);
+		return (NULL);
+	}
+	newNode->len = _strlen(newStr);
+	newNode->str = newStr;
+	newNode->next = *head;
+	*head = newNode;
+	return (*head);
 }
